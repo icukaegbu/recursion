@@ -3,8 +3,6 @@
 
 // but you don't so you're going to write it from scratch:
 var stringifyJSON = function(obj) {
-  // your code goes here
-
   //accumulator variable
   var accumulator;
 
@@ -12,15 +10,47 @@ var stringifyJSON = function(obj) {
   if (typeof obj === 'undefined' || typeof obj === 'function' ) return undefined;
   else if (typeof obj === 'string') return "\"" + obj + "\"";
   else if (typeof obj === 'boolean' || typeof obj === 'number') return obj.toString();
+  else if (obj === null) return "null";
 
-  else if(Array.isArray(obj) && obj.length > 0 ){
-  	var indx = 0, s;
-  	//while
-  	//base case
-  	//shift the first element into the accumulator and call stringifyJSON on what is left
-  	//var s = obj.shift().toString();
-  	accumulator = accumulator + "" + obj.shift();
-  	console.log(accumulator);
-  	return accumulator + stringifyJSON(obj);
+  //else if(Array.isArray(obj) && obj.length > 0 ) {
+  else if(Array.isArray(obj)) {
+    //if empty array, return empty string
+    if (obj.length === 0) return "[]";
+
+    accumulator = "[";
+
+    for(var indx = 0; indx < obj.length; indx++){
+      //if function, append null to the accumulator, else call recursively
+      accumulator += (typeof obj[indx] === 'function') ? "null," : stringifyJSON(obj[indx]) + ",";
+    }
+  	//eliminate the last comma; test if the last character in the string is a comma
+    if (accumulator.charAt(accumulator.length-1) === ",") accumulator = accumulator.slice(0, accumulator.length-2); //accumulator.slice(-1);/
+    //if (accumulator.length > 1 && accumulator.charAt(accumulator.length-1) === ",") accumulator = accumulator.slice(0, accumulator.length-2); //accumulator.slice(-1);
+
+    accumulator += "]";
+
+  	return accumulator;
+  }
+
+  else{
+    //if empty object, return empty string
+    if (Object.keys(obj).length === 0) return "{}";
+
+    accumulator = "{";
+
+    for(var key in obj){
+      //accumulator += (typeof obj[key] === 'function' || typeof obj[key] === 'undefined') ? "" : "\""+key+"\":"+stringifyJSON(obj[key])+",";
+      if (!(typeof obj[key] === 'function' || typeof obj[key] === 'undefined')) {
+        accumulator += "\""+key+"\":"+stringifyJSON(obj[key])+",";
+      }
+      
+    }
+
+    if (accumulator.charAt(accumulator.length-1) === ",") accumulator = accumulator.slice(0, accumulator.length-2); //accumulator.slice(-1);
+    //if (accumulator.length > 1 && accumulator.charAt(accumulator.length-1) === ",") accumulator = accumulator.slice(0, accumulator.length-2); //accumulator.slice(-1);
+
+    accumulator += "}";
+
+    return accumulator;
   }
 };
