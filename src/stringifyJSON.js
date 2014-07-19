@@ -15,7 +15,7 @@ var stringifyJSON = function(obj) {
   //else if(Array.isArray(obj) && obj.length > 0 ) {
   else if(Array.isArray(obj)) {
     //if empty array, return empty string
-    if (obj.length === 0) return '[]';
+    //if (obj.length === 0) return '[]';
 
     accumulator = "[";
 
@@ -28,8 +28,8 @@ var stringifyJSON = function(obj) {
     // });
 
   	//eliminate the last comma; test if the last character in the string is a comma
-    if (accumulator.charAt(accumulator.length-1) === ",") accumulator = accumulator.slice(0, accumulator.length-2); 
-    //if (accumulator.length > 1 && accumulator.charAt(accumulator.length-1) === ",") accumulator = accumulator.slice(0, accumulator.length-2); //accumulator.slice(-1);
+    //if (accumulator.charAt(accumulator.length-1) === ",") accumulator = accumulator.slice(0, accumulator.length-2); 
+    if (accumulator.length > 1 && accumulator.charAt(accumulator.length-1) === ",") accumulator = accumulator.slice(0, accumulator.length-2) ; //accumulator.slice(-1);
 
     accumulator += "]";
 
@@ -38,7 +38,7 @@ var stringifyJSON = function(obj) {
 
   else{
     //if empty object, return empty string
-    if (Object.keys(obj).length === 0) return '{}';
+    //if (Object.keys(obj).length === 0) return '{}';
 
     accumulator = "{";
 
@@ -56,8 +56,8 @@ var stringifyJSON = function(obj) {
     //   }
     // });
 
-    if (accumulator.charAt(accumulator.length-1) === ",") accumulator = accumulator.slice(0, accumulator.length-2);
-    //if (accumulator.length > 1 && accumulator.charAt(accumulator.length-1) === ",") accumulator = accumulator.slice(0, accumulator.length-2); //accumulator.slice(-1);
+    //if (accumulator.charAt(accumulator.length-1) === ",") accumulator = accumulator.slice(0, accumulator.length-2);
+    if (accumulator.length > 1 && accumulator.charAt(accumulator.length-1) === ",") accumulator = accumulator.slice(0, accumulator.length-2); //accumulator.slice(-1);
 
     accumulator += "}";
 
