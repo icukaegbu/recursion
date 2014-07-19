@@ -23,17 +23,19 @@ var stringifyJSON = function(obj) {
       //if function, append null to the accumulator, else call recursively
       accumulator += (typeof obj[indx] === 'function') ? 'null,' : stringifyJSON(obj[indx]) + ",";
     }
-    // _.each(obj, function(value){
-    //     accumulator += (typeof value === 'function') ? "null," : stringifyJSON(value) + ",";
-    // });
-
-  	//eliminate the last comma; test if the last character in the string is a comma
-    //if (accumulator.charAt(accumulator.length-1) === ",") accumulator = accumulator.slice(0, accumulator.length-2); 
+    
     if (accumulator.length > 1 && accumulator.charAt(accumulator.length-1) === ",") accumulator = accumulator.slice(0, accumulator.length-2) ; //accumulator.slice(-1);
 
     accumulator += "]";
 
   	return accumulator;
+
+    // _.each(obj, function(value){
+    //     accumulator += (typeof value === 'function') ? "null," : stringifyJSON(value) + ",";
+    // });
+
+    //eliminate the last comma; test if the last character in the string is a comma
+    //if (accumulator.charAt(accumulator.length-1) === ",") accumulator = accumulator.slice(0, accumulator.length-2); 
   }
 
   else{
@@ -50,6 +52,12 @@ var stringifyJSON = function(obj) {
       
     }
 
+    if (accumulator.length > 1 && accumulator.charAt(accumulator.length-1) === ",") accumulator = accumulator.slice(0, accumulator.length-2); //accumulator.slice(-1);
+
+    accumulator += "}";
+
+    return accumulator;
+
     // _.each(obj, function(value, key){
     //   if (!(typeof value === 'function' || typeof value === 'undefined')) {
     //     accumulator += "\""+key+"\":"+stringifyJSON(value)+",";
@@ -57,10 +65,6 @@ var stringifyJSON = function(obj) {
     // });
 
     //if (accumulator.charAt(accumulator.length-1) === ",") accumulator = accumulator.slice(0, accumulator.length-2);
-    if (accumulator.length > 1 && accumulator.charAt(accumulator.length-1) === ",") accumulator = accumulator.slice(0, accumulator.length-2); //accumulator.slice(-1);
 
-    accumulator += "}";
-
-    return accumulator;
   }
 };
