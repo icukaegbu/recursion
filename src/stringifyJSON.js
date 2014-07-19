@@ -7,9 +7,9 @@ var stringifyJSON = function(obj) {
   var accumulator;
 
   //converts a primitive value, array or object to a JSON string
-  if (typeof obj === 'undefined' || typeof obj === 'function' ) return undefined;
-  else if (typeof obj === 'string') return "\"" + obj + "\"";
+  if (typeof obj === 'string') return "\""+obj+"\"";
   else if (typeof obj === 'boolean' || typeof obj === 'number') return obj.toString();
+  else if (typeof obj === 'undefined' || typeof obj === 'function' ) return undefined;
   else if (obj === null) return 'null';
 
   //else if(Array.isArray(obj) && obj.length > 0 ) {
@@ -24,7 +24,8 @@ var stringifyJSON = function(obj) {
       accumulator += (typeof obj[indx] === 'function') ? 'null,' : stringifyJSON(obj[indx]) + ",";
     }
     
-    if (accumulator.length > 1 && accumulator.charAt(accumulator.length-1) === ",") accumulator = accumulator.slice(0, accumulator.length-2) ; //accumulator.slice(-1);
+    //if (accumulator.length > 1 && accumulator.charAt(accumulator.length-1) === ",") accumulator = accumulator.slice(0, accumulator.length-2) ;
+    if (accumulator.length > 1) accumulator = accumulator.slice(0, accumulator.length-1) ;
 
     accumulator += "]";
 
@@ -33,9 +34,6 @@ var stringifyJSON = function(obj) {
     // _.each(obj, function(value){
     //     accumulator += (typeof value === 'function') ? "null," : stringifyJSON(value) + ",";
     // });
-
-    //eliminate the last comma; test if the last character in the string is a comma
-    //if (accumulator.charAt(accumulator.length-1) === ",") accumulator = accumulator.slice(0, accumulator.length-2); 
   }
 
   else{
@@ -52,7 +50,8 @@ var stringifyJSON = function(obj) {
       
     }
 
-    if (accumulator.length > 1 && accumulator.charAt(accumulator.length-1) === ",") accumulator = accumulator.slice(0, accumulator.length-2); //accumulator.slice(-1);
+    //if (accumulator.length > 1 && accumulator.charAt(accumulator.length-1) === ",") accumulator = accumulator.slice(0, accumulator.length-2); //accumulator.slice(-1);
+    if (accumulator.length > 1) accumulator = accumulator.slice(0, accumulator.length-1) ;
 
     accumulator += "}";
 
@@ -63,8 +62,6 @@ var stringifyJSON = function(obj) {
     //     accumulator += "\""+key+"\":"+stringifyJSON(value)+",";
     //   }
     // });
-
-    //if (accumulator.charAt(accumulator.length-1) === ",") accumulator = accumulator.slice(0, accumulator.length-2);
 
   }
 };
