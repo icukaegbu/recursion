@@ -1,11 +1,17 @@
 // But instead we're going to implement it from scratch:
-var getElementsByClassName = function(className, elements, foundArray){
+var getElementsByClassName = function(className/*, elements, foundArray*/){
   // retrieve all elements; and store in an array
   // //create another array to hold matching elements
   // iterate through all elements
   //var elems = document.childNodes; //returns a NodeList
-  var elems = elements || document.body.childNodes; //returns a HTMLCollection
-  var classArray = foundArray || []; 
+  // var elems = elements || document.body.childNodes; //returns a HTMLCollection
+  // var classArray = foundArray || []; 
+
+  //var elems = (elements == null || elements == undefined) ? document.body.childNodes : elements; //returns a HTMLCollection
+  //var classArray = (foundArray == null || foundArray == undefined) ? [] : foundArray; 
+
+  var elems = (arguments[1] == null || arguments[1] == undefined) ? document.body.childNodes : arguments[1]; //returns a HTMLCollection
+  var classArray = (arguments[2] == null || arguments[2] == undefined) ? [] : arguments[2]; 
 
   for (var k = 0; k < elems.length; k++) {
 	 //processObject(elems[k]);
