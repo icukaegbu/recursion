@@ -4,10 +4,6 @@ var getElementsByClassName = function(className){
   // //create another array to hold matching elements
   // iterate through all elements
 
-
-  // var elems = (arguments[1] == null || arguments[1] == undefined) ? document.body.childNodes : arguments[1]; //returns a HTMLCollection
-  // var classArray = (arguments[2] == null || arguments[2] == undefined) ? [] : arguments[2]; 
-  
   var elems = arguments[1] || document.body;
   var classArray = arguments[2] || [];
 
@@ -15,12 +11,8 @@ var getElementsByClassName = function(className){
       classArray.push(elems);
   }
 
-  // if($(elems).hasClass(className)){
-  //   classArray.push(elems);
-  // }
-
   for (var indx = 0; indx < elems.childNodes.length; indx++) {
-	 //processObject(elems[k]);
+   //processObject(elems[k]);
    var obj = elems.childNodes[indx];
 
    getElementsByClassName(className, obj, classArray);
@@ -28,6 +20,13 @@ var getElementsByClassName = function(className){
   }
 
   return classArray;
+
+  // var elems = (arguments[1] == null || arguments[1] == undefined) ? document.body.childNodes : arguments[1]; //returns a HTMLCollection
+  // var classArray = (arguments[2] == null || arguments[2] == undefined) ? [] : arguments[2]; 
+  // 
+  //  // if($(elems).hasClass(className)){
+  //   classArray.push(elems);
+  // }
 
   //if element doesnt have children
   //	check if it has class attrib and if class attrib === classname
