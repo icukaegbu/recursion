@@ -1,31 +1,33 @@
 // But instead we're going to implement it from scratch:
-var getElementsByClassName = function(className/*, elements, foundArray*/){
+var getElementsByClassName = function(className){
   // retrieve all elements; and store in an array
   // //create another array to hold matching elements
   // iterate through all elements
-  //var elems = document.childNodes; //returns a NodeList
-  // var elems = elements || document.body.childNodes; //returns a HTMLCollection
-  // var classArray = foundArray || []; 
 
-  //var elems = (elements == null || elements == undefined) ? document.body.childNodes : elements; //returns a HTMLCollection
-  //var classArray = (foundArray == null || foundArray == undefined) ? [] : foundArray; 
 
-  var elems = (arguments[1] == null || arguments[1] == undefined) ? document.body.childNodes : arguments[1]; //returns a HTMLCollection
-  var classArray = (arguments[2] == null || arguments[2] == undefined) ? [] : arguments[2]; 
+  // var elems = (arguments[1] == null || arguments[1] == undefined) ? document.body.childNodes : arguments[1]; //returns a HTMLCollection
+  // var classArray = (arguments[2] == null || arguments[2] == undefined) ? [] : arguments[2]; 
+  
+  var elems = arguments[1] || document.body;
+  var classArray = arguments[2] || [];
 
-  for (var k = 0; k < elems.length; k++) {
+  if (elems.classList !== null && elems.classList !== undefined && elems.classList.contains(className)){
+      classArray.push(elems);
+  }
+
+  // if($(elems).hasClass(className)){
+  //   classArray.push(elems);
+  // }
+
+  for (var indx = 0; indx < elems.childNodes.length; indx++) {
 	 //processObject(elems[k]);
-   var obj = elems[k];
+   var obj = elems.childNodes[indx];
 
-   if (obj.classList !== null && obj.classList !== undefined && obj.classList.contains(className)){
-      classArray.push(obj);
-   }
-
-   if(obj.childNodes.length > 0) {
-      getElementsByClassName(className, obj.childNodes, classArray);
-   }
+   getElementsByClassName(className, obj, classArray);
 
   }
+
+  return classArray;
 
   //if element doesnt have children
   //	check if it has class attrib and if class attrib === classname
@@ -44,5 +46,4 @@ var getElementsByClassName = function(className/*, elements, foundArray*/){
   // 	}
   // }
 
-  return classArray;
 };
